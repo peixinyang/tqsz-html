@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇见时间的美 - 深圳生态环境知识问答</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E7D32', // 深绿色主色调
+                        secondary: '#4DB6AC', // 青绿色辅助色
+                        accent: '#8D6E63', // 棕色点缀
+                        light: '#E8F5E9', // 浅绿色背景
+                        dark: '#1B5E20', // 深绿色文字
+                        szaqua: '#009688', // 深圳蓝绿色
+                        szorange: '#FF9800', // 深圳活力橙
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+            .float-animation {
+                animation: float 6s ease-in-out infinite;
+            }
+            .scale-animation {
+                animation: scale 3s ease-in-out infinite;
+            }
+            .rotate-animation {
+                animation: rotate 15s linear infinite;
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes scale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <style>
+        body {
+            background-color: #f9fbf7;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d0e1d4' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+        
+        .nature-element {
+            position: absolute;
+            opacity: 0.8;
+            z-index: 0;
+        }
+        
+        .shenzhen-icon {
+            position: absolute;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .quiz-appear {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .answer-option {
+            transition: all 0.3s ease;
+        }
+        
+        .answer-option:hover:not(.selected):not(.correct):not(.incorrect) {
+            background-color: rgba(46, 125, 50, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .answer-option.selected {
+            background-color: rgba(46, 125, 50, 0.2);
+        }
+        
+        .answer-option.correct {
+            background-color: rgba(46, 125, 50, 0.3);
+        }
+        
+        .answer-option.incorrect {
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+        
+        .cityscape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            opacity: 0.2;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="font-inter text-dark min-h-screen flex flex-col">
+    <!-- 自然元素装饰 -->
+    <div class="nature-element left-5 top-10 text-4xl text-primary/70 float-animation"><i class="fa fa-leaf"></i></div>
+    <div class="nature-element right-5 top-20 text-3xl text-secondary/70 float-animation" style="animation-delay: 1s"><i class="fa fa-pagelines"></i></div>
+    <div class="nature-element left-10 bottom-20 text-4xl text-accent/70 float-animation" style="animation-delay: 2s"><i class="fa fa-tree"></i></div>
+    <div class="nature-element right-10 bottom-10 text-3xl text-primary/70 float-animation" style="animation-delay: 3s"><i class="fa fa-pagelines"></i></div>
+    <div class="nature-element left-1/4 top-1/3 text-2xl text-secondary/70 float-animation" style="animation-delay: 4s"><i class="fa fa-leaf"></i></div>
+    <div class="nature-element right-1/4 bottom-1/3 text-2xl text-accent/70 float-animation" style="animation-delay: 5s"><i class="fa fa-pagelines"></i></div>
+    
+    <!-- 深圳建筑元素 -->
+    <div class="shenzhen-icon left-1/5 top-1/4 text-4xl text-szaqua/60 scale-animation"><i class="fa fa-building"></i></div>
+    <div class="shenzhen-icon right-1/5 top-1/3 text-3xl text-szorange/60 scale-animation" style="animation-delay: 1s"><i class="fa fa-archway"></i></div>
+    <div class="shenzhen-icon left-1/4 bottom-1/4 text-3xl text-primary/60 scale-animation" style="animation-delay: 2s"><i class="fa fa-bridge"></i></div>
+    <div class="shenzhen-icon right-1/3 bottom-1/3 text-4xl text-szaqua/60 scale-animation" style="animation-delay: 3s"><i class="fa fa-city"></i></div>
+    
+    <!-- 城市轮廓线 -->
+    <svg class="cityscape" viewBox="0 0 1000 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,100 L100,80 L150,60 L200,70 L250,50 L300,75 L350,65 L400,80 L450,60 L500,40 L550,70 L600,50 L650,80 L700,60 L750,45 L800,70 L850,50 L900,65 L950,75 L1000,100 Z" fill="#2E7D32" opacity="0.2"/>
+        <path d="M0,100 L50,90 L100,95 L150,85 L200,90 L250,80 L300,95 L350,85 L400,90 L450,80 L500,95 L550,85 L600,90 L650,80 L700,95 L750,85 L800,90 L850,80 L900,95 L950,85 L1000,100 Z" fill="#2E7D32" opacity="0.3"/>
+    </svg>
+    
+    <!-- 游戏容器 -->
+    <div class="container mx-auto px-4 py-8 flex-grow flex flex-col">
+        <!-- 标题区域 -->
+        <header class="text-center mb-8 mt-4 relative">
+            <h1 class="text-[clamp(1.8rem,5vw,2.8rem)] font-bold text-primary text-shadow relative z-10">
+                遇见时间的美
+            </h1>
+            <p class="text-gray-600 mt-2 max-w-2xl mx-auto relative z-10">
+                深圳生态环境建设成果与知识科普
+            </p>
+            <p class="text-sm text-gray-500 mt-1 relative z-10">
+                1980-2025 时光里的生态答卷
+            </p>
+        </header>
+        
+        <!-- 进度条 -->
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8 overflow-hidden">
+            <div id="progress-bar" class="progress-bar bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+        </div>
+        
+        <!-- 游戏内容区域 -->
+        <div id="game-container" class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 relative z-10 quiz-appear">
+            <!-- 开始界面 -->
+            <div id="start-screen" class="text-center">
+                <div class="mb-6 text-5xl text-primary/80">
+                    <i class="fa fa-leaf"></i>
+                    <i class="fa fa-building ml-2"></i>
+                    <i class="fa fa-tree ml-2"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-4">欢迎参加深圳生态环境知识问答</h2>
+                <p class="text-gray-600 mb-8">
+                    通过答题了解深圳在生态环境保护方面的努力和成就，<br>
+                    见证深圳45年来的生态变迁！
+                </p>
+                <button id="start-btn" class="bg-primary hover:bg-dark text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+                    开始答题
+                </button>
+            </div>
+            
+            <!-- 问题界面 -->
+            <div id="question-screen" class="hidden">
+                <div id="question-number" class="text-sm font-medium text-gray-500 mb-2">问题 1/10</div>
+                <h2 id="question-text" class="text-xl md:text-2xl font-semibold mb-6 leading-tight">
+                    深圳是全国首个实现全市域消除黑臭水体的城市，请问这一目标是在哪一年实现的？
+                </h2>
+                
+                <div id="answers-container" class="space-y-3 mb-8">
+                    <div class="answer-option p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50" data-answer="A">
+                        <span class="font-medium mr-2">A.</span>
+                        <span>2018年</span>
+                    </div>
+                    <div class="answer-option p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50" data-answer="B">
+                        <span class="font-medium mr-2">B.</span>
+                        <span>2019年</span>
+                    </div>
+                    <div class="answer-option p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50" data-answer="C">
+                        <span class="font-medium mr-2">C.</span>
+                        <span>2020年</span>
+                    </div>
+                    <div class="answer-option p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50" data-answer="D">
+                        <span class="font-medium mr-2">D.</span>
+                        <span>2021年</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button id="prev-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        上一题
+                    </button>
+                    <button id="next-btn" class="bg-primary hover:bg-dark text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        下一题
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 结果界面 -->
+            <div id="result-screen" class="hidden text-center">
+                <div id="result-icon" class="text-6xl mb-4 text-primary"></div>
+                <h2 id="result-title" class="text-2xl font-bold mb-2">恭喜你完成了所有题目！</h2>
+                <p id="result-score" class="text-xl text-gray-600 mb-6">你的得分是：<span class="font-bold text-primary">8/10</span></p>
+                
+                <div id="result-details" class="bg-light rounded-lg p-4 mb-8 text-left max-w-md mx-auto">
+                    <h3 class="font-medium mb-2">答题情况：</h3>
+                    <p>答对题数：<span class="font-semibold">8</span></p>
+                    <p>答错题数：<span class="font-semibold">2</span></p>
+                    <p>正确率：<span class="font-semibold">80%</span></p>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="font-medium mb-4">深圳生态建设成果一览</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-light rounded-lg p-4 card-hover">
+                            <div class="text-2xl text-primary mb-2"><i class="fa fa-tint"></i></div>
+                            <h4 class="font-semibold mb-1">水环境治理</h4>
+                            <p class="text-sm text-gray-600">全市建成区黑臭水体全面消除，河流水质显著提升</p>
+                        </div>
+                        <div class="bg-light rounded-lg p-4 card-hover">
+                            <div class="text-2xl text-primary mb-2"><i class="fa fa-leaf"></i></div>
+                            <h4 class="font-semibold mb-1">绿化与公园建设</h4>
+                            <p class="text-sm text-gray-600">人均公园绿地面积达16.4平方米，公园总数超1200个</p>
+                        </div>
+                        <div class="bg-light rounded-lg p-4 card-hover">
+                            <div class="text-2xl text-primary mb-2"><i class="fa fa-bicycle"></i></div>
+                            <h4 class="font-semibold mb-1">绿色出行</h4>
+                            <p class="text-sm text-gray-600">轨道交通运营里程超500公里，公交电动化率100%</p>
+                        </div>
+                        <div class="bg-light rounded-lg p-4 card-hover">
+                            <div class="text-2xl text-primary mb-2"><i class="fa fa-recycle"></i></div>
+                            <h4 class="font-semibold mb-1">垃圾分类</h4>
+                            <p class="text-sm text-gray-600">全市生活垃圾回收利用率达45%以上</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="bg-primary hover:bg-dark text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        重新开始
+                    </button>
+                    <button id="share-btn" class="bg-secondary hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fa fa-share-alt mr-2"></i>分享游戏
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer class="text-center text-gray-500 text-sm py-4 relative z-10">
+            <p>© 2025 深圳生态环境局 | 遇见时间的美</p>
+            <p class="text-xs mt-1">深圳经济特区建立45周年特别企划</p>
+        </footer>
+    </div>
+
+    <script>
+        // 游戏数据 - 关于深圳45周年和生态建设的题目
+        const quizData = [
+            {
+                question: "深圳经济特区是哪一年设立的？",
+                answers: [
+                    "1978年",
+                    "1980年",
+                    "1985年",
+                    "1990年"
+                ],
+                correct: "B",
+                explanation: "1980年8月26日，全国人大常委会批准在深圳设置经济特区，这是中国设立的第一个经济特区。"
+            },
+            {
+                question: "深圳是全国首个实现全市域消除黑臭水体的城市，请问这一目标是在哪一年实现的？",
+                answers: [
+                    "2018年",
+                    "2019年",
+                    "2020年",
+                    "2021年"
+                ],
+                correct: "C",
+                explanation: "深圳在2020年全面消除全市域黑臭水体，成为全国首个实现这一目标的城市，水环境质量实现历史性跨越。"
+            },
+            {
+                question: "截至2023年，深圳全市公园总数达到多少个？",
+                answers: [
+                    "500多个",
+                    "800多个",
+                    "1200多个",
+                    "1500多个"
+                ],
+                correct: "C",
+                explanation: "深圳坚持生态优先，截至2023年，全市公园总数超过1200个，形成了“千园之城”的城市格局。"
+            },
+            {
+                question: "深圳标志性建筑“春笋”（中国华润大厦）位于哪个区域？",
+                answers: [
+                    "福田中心区",
+                    "南山科技园",
+                    "前海自贸区",
+                    "后海中心区"
+                ],
+                correct: "D",
+                explanation: "“春笋”（中国华润大厦）位于深圳后海中心区，高度392.5米，是深圳的新地标之一，2018年建成。"
+            },
+            {
+                question: "深圳哪座山被称为“城市绿肺”，并且是市民登山健身的热门去处？",
+                answers: [
+                    "梧桐山",
+                    "莲花山",
+                    "七娘山",
+                    "塘朗山"
+                ],
+                correct: "A",
+                explanation: "梧桐山是深圳第一高峰，主峰海拔943.7米，森林覆盖率高，被誉为“城市绿肺”，是市民亲近自然的好去处。"
+            },
+            {
+                question: "深圳在全国率先实现了公交车和出租车的全面电动化，请问这一举措主要有助于减少哪种污染物的排放？",
+                answers: [
+                    "二氧化碳",
+                    "二氧化硫",
+                    "氮氧化物",
+                    "以上都是"
+                ],
+                correct: "D",
+                explanation: "电动化交通工具能够显著减少二氧化碳、二氧化硫、氮氧化物等污染物的排放，有助于改善空气质量和应对气候变化。"
+            },
+            {
+                question: "深圳湾滨海休闲带西延段是深圳生态建设的重要成果，它西起哪里？",
+                answers: [
+                    "深圳湾大桥",
+                    "蛇口渔港",
+                    "妈湾跨海通道",
+                    "海上世界"
+                ],
+                correct: "C",
+                explanation: "深圳湾滨海休闲带西延段西起妈湾跨海通道，东至深圳湾大桥，全长约13公里，2020年正式开放。"
+            },
+            {
+                question: "深圳的哪个生态保护区是全球重要的候鸟栖息地之一，每年吸引大量候鸟前来越冬？",
+                answers: [
+                    "大鹏半岛国家地质公园",
+                    "内伶仃岛-福田国家级自然保护区",
+                    "华侨城湿地",
+                    "铁岗-石岩水库保护区"
+                ],
+                correct: "B",
+                explanation: "内伶仃岛-福田国家级自然保护区是全球重要的候鸟栖息地之一，每年有超过10万只候鸟在此停歇、越冬或繁殖。"
+            },
+            {
+                question: "深圳正在建设的“国际红树林中心”将发挥什么作用？",
+                answers: [
+                    "开展红树林保护国际合作与交流",
+                    "推动红树林科研和技术创新",
+                    "促进红树林保护意识普及",
+                    "以上都是"
+                ],
+                correct: "D",
+                explanation: "国际红树林中心将成为全球红树林保护和可持续利用的重要平台，开展国际合作、科研创新和科普教育等工作，助力全球生态保护。"
+            },
+            {
+                question: "深圳在2023年提出的“山海连城”计划，旨在构建什么样的生态格局？",
+                answers: [
+                    "生态保护与城市发展协调的格局",
+                    "以公园为主体的绿化格局",
+                    "连通山脉与海洋的生态廊道",
+                    "以上都是"
+                ],
+                correct: "D",
+                explanation: "“山海连城”计划旨在构建生态保护与城市发展协调、以公园为主体、连通山脉与海洋的生态格局，提升城市生态品质。"
+            }
+        ];
+        
+        // 游戏状态
+        let currentQuestion = 0;
+        let selectedAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+        
+        // DOM 元素
+        const startScreen = document.getElementById('start-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const answersContainer = document.getElementById('answers-container');
+        const progressBar = document.getElementById('progress-bar');
+        const resultIcon = document.getElementById('result-icon');
+        const resultTitle = document.getElementById('result-title');
+        const resultScore = document.getElementById('result-score');
+        const resultDetails = document.getElementById('result-details');
+        
+        // 初始化事件监听
+        function initEventListeners() {
+            startBtn.addEventListener('click', startGame);
+            prevBtn.addEventListener('click', goToPrevQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            restartBtn.addEventListener('click', restartGame);
+            shareBtn.addEventListener('click', shareResult);
+        }
+        
+        // 开始游戏
+        function startGame() {
+            startScreen.classList.add('hidden');
+            questionScreen.classList.remove('hidden');
+            renderQuestion();
+            updateProgressBar();
+        }
+        
+        // 渲染当前问题
+        function renderQuestion() {
+            const question = quizData[currentQuestion];
+            questionNumber.textContent = `问题 ${currentQuestion + 1}/${quizData.length}`;
+            questionText.textContent = question.question;
+            
+            // 清空答案容器
+            answersContainer.innerHTML = '';
+            
+            // 渲染答案选项
+            ['A', 'B', 'C', 'D'].forEach((answerKey, index) => {
+                const answerElement = document.createElement('div');
+                answerElement.classList.add('answer-option', 'p-4', 'border', 'border-gray-200', 'rounded-lg', 'cursor-pointer');
+                answerElement.dataset.answer = answerKey;
+                
+                // 如果该问题已有选择，高亮显示
+                if (selectedAnswers[currentQuestion] === answerKey) {
+                    answerElement.classList.add('selected');
+                }
+                
+                answerElement.innerHTML = `
+                    <span class="font-medium mr-2">${answerKey}.</span>
+                    <span>${question.answers[index]}</span>
+                `;
+                
+                answerElement.addEventListener('click', () => selectAnswer(answerKey, answerElement));
+                answersContainer.appendChild(answerElement);
+            });
+            
+            // 更新按钮状态
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = selectedAnswers[currentQuestion] === null;
+            nextBtn.textContent = currentQuestion === quizData.length - 1 ? '查看结果' : '下一题';
+        }
+        
+        // 选择答案
+        function selectAnswer(answerKey, answerElement) {
+            // 移除之前的选择
+            document.querySelectorAll('.answer-option.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // 添加新选择
+            answerElement.classList.add('selected');
+            selectedAnswers[currentQuestion] = answerKey;
+            
+            // 更新按钮状态
+            nextBtn.disabled = false;
+        }
+        
+        // 前往上一题
+        function goToPrevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+        
+        // 前往下一题
+        function goToNextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                // 完成所有题目，显示结果
+                calculateScore();
+                showResult();
+            }
+        }
+        
+        // 计算得分
+        function calculateScore() {
+            score = 0;
+            selectedAnswers.forEach((answer, index) => {
+                if (answer === quizData[index].correct) {
+                    score++;
+                }
+            });
+        }
+        
+        // 显示结果
+        function showResult() {
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            // 设置结果图标和标题
+            if (score >= 8) {
+                resultIcon.innerHTML = '<i class="fa fa-trophy text-yellow-500"></i>';
+                resultTitle.textContent = '太棒了！你是生态环境小专家！';
+            } else if (score >= 5) {
+                resultIcon.innerHTML = '<i class="fa fa-leaf text-green-500"></i>';
+                resultTitle.textContent = '做得不错！继续加油！';
+            } else {
+                resultIcon.innerHTML = '<i class="fa fa-book text-blue-500"></i>';
+                resultTitle.textContent = '继续学习，你会了解更多！';
+            }
+            
+            // 设置得分
+            resultScore.innerHTML = `你的得分是：<span class="font-bold text-primary">${score}/${quizData.length}</span>`;
+            
+            // 设置结果详情
+            resultDetails.innerHTML = `
+                <h3 class="font-medium mb-2">答题情况：</h3>
+                <p>答对题数：<span class="font-semibold">${score}</span></p>
+                <p>答错题数：<span class="font-semibold">${quizData.length - score}</span></p>
+                <p>正确率：<span class="font-semibold">${Math.round((score / quizData.length) * 100)}%</span></p>
+            `;
+        }
+        
+        // 重启游戏
+        function restartGame() {
+            currentQuestion = 0;
+            selectedAnswers = Array(quizData.length).fill(null);
+            resultScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+        
+        // 分享结果
+        function shareResult() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '遇见时间的美 - 深圳生态环境知识问答',
+                    text: `我在"遇见时间的美"知识问答中获得了${score}/${quizData.length}分，了解了很多深圳生态环境建设的知识！快来挑战吧！`,
+                    url: window.location.href
+                })
+                .then(() => console.log('分享成功'))
+                .catch((error) => console.log('分享失败:', error));
+            } else {
+                alert('抱歉，当前浏览器不支持分享功能。你可以复制链接分享给朋友：' + window.location.href);
+            }
+        }
+        
+        // 更新进度条
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        // 初始化游戏
+        function initGame() {
+            initEventListeners();
+        }
+        
+        // 启动游戏
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>    

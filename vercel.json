@@ -2,7 +2,7 @@
 "version": 2,
 "builds": [
 {
-"src": "index.html",
+"src": "遇见时间的美.html",
 "use": "@vercel/static"
 }
 ],
@@ -14,3 +14,4 @@
 ]
 
 }
+
